@@ -11,6 +11,10 @@ process.on('SIGINT', function () {
     process.exit();
 });
 
+process.on('uncaughtException', function (err) {
+    console.log('UNCAUGHT EXCEPTION - keeping process alive:', err);
+});
+
 const toPdf = (response, url, filename, config) => {
     var stream = wkhtmltopdf(url, config);
     response.setHeader('Content-Disposition', `attachment; filename=${filename ?? "print.pdf"}`);
