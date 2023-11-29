@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker run -it --rm -p 3000:3000 venthe/wkhtmltopdf:latest 
+docker run -it --rm -p 3000:3000 "venthe/wkhtmltopdf:${1:-latest}"
