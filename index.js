@@ -17,7 +17,9 @@ process.on('uncaughtException', function (err) {
 
 const toPdf = (response, url, filename, config) => {
     var stream = wkhtmltopdf(url, config);
-    response.setHeader('Content-Disposition', `attachment; filename=${filename ?? "print.pdf"}`);
+    if (filename && filename.length > 0) {
+        response.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+    }
     response.setHeader('Content-Type', 'application/pdf');
     stream.pipe(response);
 }
