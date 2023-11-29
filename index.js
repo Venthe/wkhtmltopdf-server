@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-var wkhtmltopdf = require('wkhtmltopdf');
+const wkhtmltopdf = require('wkhtmltopdf');
 
 console.log("Starting server")
 
@@ -16,7 +16,7 @@ process.on('uncaughtException', function (err) {
 });
 
 const toPdf = (response, url, filename, config) => {
-    var stream = wkhtmltopdf(url, config);
+    const stream = wkhtmltopdf(url, config);
     if (filename && filename.length > 0) {
         response.setHeader('Content-Disposition', `attachment; filename=${filename}`);
     }
