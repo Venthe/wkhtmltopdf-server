@@ -12,7 +12,7 @@ process.on('SIGINT', function () {
 });
 
 process.on('uncaughtException', function (err) {
-    console.log('UNCAUGHT EXCEPTION - keeping process alive:', err);
+    console.error('UNCAUGHT EXCEPTION - keeping process alive:', err);
 });
 
 const toPdf = (response, url, filename, config) => {
