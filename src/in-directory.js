@@ -7,7 +7,7 @@ const clearDirectory = (directory) => {
     fs.rmSync(directory, {force: true, recursive: true})
 }
 
-const inDirectory = async (callback) => {
+const inDirectory = (callback) => {
     const directory = path.join(process.env["CONVERTER_WORKDIR"] ?? __dirname, uuid.v4());
     fs.mkdirSync(directory)
 
@@ -16,10 +16,9 @@ const inDirectory = async (callback) => {
     });
 
     const promise = new Promise((resolve, reject) => {
-        callback(directory, { resolve, reject });
+        callback(directory, { resolve, reject }).catch(reject);
     });
-    promise.finally(() => clearDirectory(directory))
-    return promise
+    return promise.finally(() => clearDirectory(directory))
 }
 
 module.exports = { inDirectory }

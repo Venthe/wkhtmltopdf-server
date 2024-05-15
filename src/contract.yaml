@@ -1,0 +1,78 @@
+openapi: 3.0.0
+$schema: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json
+info:
+  title: File Upload API
+  description: API for uploading files and configurations
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/configuration"
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  $ref: "#/components/schemas/url"
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              additionalProperties: false
+      responses:
+        '200':
+          $ref: "#/components/responses/pdf"
+        '415':
+          description: Invalid content type
+        '500':
+          description: "Bad request"
+    get:
+      parameters:
+        - in: query
+          name: parameters
+          schema:
+            $ref: "#/components/schemas/configuration"
+          style: form
+          explode: true
+      responses:
+        '200':
+          $ref: "#/components/responses/pdf"
+        '500':
+          description: "Bad request"
+
+components:
+  responses:
+    pdf:
+      description: OK
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+  schemas:
+    configuration:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          $ref: "#/components/schemas/url"
+      additionalProperties:
+        type: string
+    url:
+      type: string
+      format: url
+      description: URL parameter
+      example: http://localhost:3000/selftest
+    
+    

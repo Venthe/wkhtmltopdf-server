@@ -24,4 +24,4 @@ ENV CONVERTER_WORKDIR=/workdir
 ENV SOURCE_WORKDIR=/server/src
 
 ENTRYPOINT ["node"]
-CMD ["/server/src/index.js"]
+CMD ["/server/src/server.js"]

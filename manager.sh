@@ -39,11 +39,16 @@ function test() {
         curl --request GET http://localhost:3000/?url=http://localhost:3000/selftest > ./out/test4.pdf
     }
 
+    function 5() {
+        curl --request GET "http://localhost:3000/?url=http://localhost:3000/selftest&aaa=bbb"  > ./out/test5.json
+    }
+
     function all() {
         1
         2
         3
         4
+        5
     }
 
     "${@:-1}"
